@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGTrimer</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/31d4cf3320.js" crossorigin="anonymous"></script>
+<style>
+	body{
+		height:100%;
+		width: 100%;
+		text-align center;
+		margin: 0 auto;
+	}
+	#app{
+		text-align center;
+		margin: 0 auto;
+	}
+	header{
+		position: relative;
+		bottom: 20px;
+		width: 100%;
+		height: 5%;
+		margin: 0 auto;
+		background: purple;
+		color: white;
+		text-align: center;
+		border-radius: 0 0 30px 30px;
+	}
+	#btns{
+		text-align: center;
+	}
+	a{
+		margin: 5px;
+		font-size: 15px;
+		padding: 13px;
+		background: purple;
+		color: white;
+		border-radius: 10px;
+	}
+	a i {
+		position: relative;
+		top: 5px;
+	}
+	select{
+		display: block;
+		text-align: center;
+		width: 30%;
+		margin: 0 auto;
+		max-width: 50%;
+		padding: 5px;
+		color: white;
+		background: purple;
+		border-radius: 5px;
+	}
+	img{
+		display: block;
+		margin: auto;
+	}
+	input[type="color"]{
+		position: relative;
+		top: 7px;
+		height: 40px;
+		width: 40px;
+		border-radius: 10px;
+		background: purple;
+	}
+</style>
+<script>
+	$(function(){
+		var uploadedFile;
+		var uploadImgSrc;
+		var x=0;
+		var y=0;
+		var w=1;
+		$("#canvas,#upload").hide();
+		var cv = [
+			document.getElementById("canvas0"),
+			document.getElementById("canvas1")
+		];
+		var ctx = [
+			cv[0].getContext("2d"),
+			cv[1].getContext("2d")
+		];
+		$("#uploadBTN").click(function(){
+			$("#upload").click();
+		});
+		$("#upload").change(function(){
+   			uploadedFile=$(this).prop('files')[0];
+  				if(!uploadedFile.type.match('image.*')) {
+    				alert('画像を選択してください');
+  			 	}else{
+  			 		console.log("image is uploaded!")
+  					load();
+  				}
+		})
+		function load(){
+			var reader = new FileReader();
+  			reader.onload = function() {
+ 					uploadImgSrc = reader.result;
+ 					console.log("image is loaded!");
+ 					draw();
+
+ 			};
+ 			reader.readAsDataURL(uploadedFile);
+ 			}
+ 			function draw(){
+ 				var type = $("#type").val();
+ 				var	color = $("#colorPicker").val();
+ 				var canvas = cv[type];
+				var context = ctx[type];
+ 				context.clearRect(0,0,canvas.width, canvas.height);
+ 				context.fillStyle = color;
+				context.fillRect(0, 0, canvas.width, canvas.height);
+ 				var _img = new Image();
+ 				var preview = $("#preview");
+ 				preview.attr("height",canvas.width/4);
+ 				preview.attr("width",canvas.width/4);
+ 				if(uploadImgSrc){
+ 					_img.src = uploadImgSrc;
+ 				}else{
+ 					var _data = canvas.toDataURL();
+ 					preview.attr("src",_data);
+ 				}
+ 				_img.onload = function(){
+ 					console.log("image size is "+_img.height+":"+_img.width);
+ 					if(type=0){
+ 						context.drawImage(_img, y,-375+x,_img.width+w,_img.height+w);
+ 					}else{
+ 						context.drawImage(_img, y,-375+x,_img.width+w,_img.height+w);
+ 					}
+ 					var _data = canvas.toDataURL();
+ 					preview.attr("src",_data);
+ 				}
+ 				console.log("draw is done!");
+
+ 			}
+ 			$("#up").click(function(){
+ 				if(uploadImgSrc){
+ 					x = x-50;
+ 					draw();
+ 				}
+ 				return false;
+ 			});
+ 			$("#down").click(function(){
+ 				if(uploadImgSrc){
+ 					x = x+50;
+ 					draw();
+ 				}
+ 				return false;
+ 			});
+ 			$("#plus").click(function(){
+ 				if(uploadImgSrc){
+ 					w = w+50;
+ 					draw();
+ 				}
+ 				return false;
+ 			});
+ 			$("#minus").click(function(){
+ 				if(uploadImgSrc){
+ 					w = w-50;
+ 					draw();
+ 				}
+ 				return false;
+ 			});
+ 			$("#left").click(function(){
+  			if(uploadImgSrc){
+					y = y-50;
+ 					draw();
+ 			}
+ 				return false;
+ 			});
+ 			$("#right").click(function(){
+ 			if(uploadImgSrc){
+ 				y = y+50;
+ 				draw();
+ 			}
+ 				return false;
+ 			});
+ 			$("#type").change(function(){
+ 				var _val = $("#type").val();
+ 				$("#canvas0,#canvas1").hide();
+ 				$("#canvas"+_val).show();
+ 				if(uploadImgSrc){
+ 					draw();
+ 				}
+ 			})
+ 			$("#download").click(function(){
+ 				var type = $("#type").val();
+ 				var canvas = cv[type];
+ 				var data = canvas.toDataURL("image/png");
+ 				if(navigator.userAgent.match(/iPhone|Android.+Mobile/)){
+ 					var w = window.open('about:blank');
+ 					w.document.write("<img src='" + data + "'/>");
+ 				}else{
+    				let link = document.createElement("a");
+    				link.href = canvas.toDataURL("image/png");
+    				link.download = "AGtrimer.png";
+    				link.click();
+    			}
+ 			});
+ 			$("#colorPicker").change(function(){
+ 				$(".color").css("background", $(this).val());
+ 				draw();
+ 			});
+ 			draw();
+	});
+</script>
+</head>
+<body>
+<header  class="color">
+	<h2>
+		AGTrimer
+	</h2>
+</header>
+<div id="app">
+<img id="preview">
+<br>
+<select id="type" class="color">
+	<option value="0" selected>靴</option>
+	<option value="1">アパレル</option>
+</select>
+<br>
+<div id="btns">
+<a href="#" id="uploadBTN" class="btn color">アップロード</a>
+<a href="#" id="download" class="btn color">ダウンロード</a>
+<input type="color" id="colorPicker" class="color" value="#000000">
+<br>
+<br>
+<a href="#" id="up" class="color"><i class="fa-solid fa-angle-up fa-2x"></i></a>
+<a href="#" id="down" class="color"><i class="fa-solid fa-angle-down fa-2x"></i></a>
+<a href="#" id="left" class="color"><i class="fa-solid fa-angle-left fa-2x"></i></a>
+<a href="#" id="right" class="color"><i class="fa-solid fa-angle-right fa-2x"></i></a>
+<a href="#" id="plus" class="color"><i class="fa-solid fa-plus fa-2x"></i></a>
+<a href="#" id="minus" class="color"><i class="fa-solid fa-minus fa-2x"></i></a>
+</div>
+<input type="file" id="upload">
+<div id="canvas">
+	<canvas height="828" width="828" id="canvas0"></canvas>
+	<canvas height="1117" width="828" id="canvas1"></canvas>
+</div>
+
+</div>
+
+</body>
+</html>
