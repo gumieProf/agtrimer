@@ -45,16 +45,22 @@
 		top: 5px;
 	}
 	select{
+		box-sizing: content-box;
 		display: block;
 		text-align: center;
-		width: 30%;
+		width: 25%;
+		height: 50px;
 		margin: 0 auto;
-		max-width: 50%;
 		padding: 5px;
 		color: white;
 		background: purple;
-		border-radius: 5px;
+		border-radius: 10px;
 	}
+	@media screen and (-webkit-min-device-pixel-ratio:0) {  /*safari and chrome*/
+    select {
+        height: 50px;
+    }
+}
 	img{
 		display: block;
 		margin: auto;
