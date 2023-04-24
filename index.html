@@ -5,6 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AGTrimer</title>
+  <link rel="shortcut icon" href="./favicon.ico">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="icon" type="image/png" href="./android-chrome-192x192.png">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/31d4cf3320.js" crossorigin="anonymous"></script>
 <style>
@@ -33,9 +36,9 @@
 		text-align: center;
 	}
 	a{
-		margin: 5px;
+		margin: 10px 20px 10px 20px;
 		font-size: 15px;
-		padding: 13px;
+		padding: 15px;
 		background: purple;
 		color: white;
 		border-radius: 10px;
@@ -134,7 +137,6 @@
  					preview.attr("src",_data);
  				}
  				_img.onload = function(){
- 					console.log("image size is "+_img.height+":"+_img.width);
  					context.drawImage(_img, x,-375+y,_img.width*w,_img.height*w);
  					var _data = canvas.toDataURL();
  					preview.attr("src",_data);
@@ -241,6 +243,7 @@
 <a href="#" id="down" class="color"><i class="fa-solid fa-angle-down fa-2x"></i></a>
 <a href="#" id="left" class="color"><i class="fa-solid fa-angle-left fa-2x"></i></a>
 <a href="#" id="right" class="color"><i class="fa-solid fa-angle-right fa-2x"></i></a>
+<br>
 <a href="#" id="plus" class="color"><i class="fa-solid fa-plus fa-2x"></i></a>
 <a href="#" id="minus" class="color"><i class="fa-solid fa-minus fa-2x"></i></a>
 <a href="#" id="refresh" class="color"><i class="fa-sharp fa-solid fa-rotate-right fa-2x"></i></i></a>
