@@ -8,7 +8,10 @@
   <link rel="shortcut icon" href="./favicon.ico">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="icon" type="image/png" href="./android-chrome-192x192.png">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800;900&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://kit.fontawesome.com/31d4cf3320.js" crossorigin="anonymous"></script>
 <style>
 	body{
@@ -16,6 +19,7 @@
 		width: 100%;
 		text-align center;
 		margin: 0 auto;
+		font-family: 'M PLUS Rounded 1c', sans-serif;
 	}
 	#app{
 		text-align center;
@@ -36,7 +40,7 @@
 		text-align: center;
 	}
 	a{
-		margin: 10px 20px 10px 20px;
+		margin: 20px;
 		font-size: 15px;
 		padding: 15px;
 		background: purple;
@@ -47,7 +51,15 @@
 		position: relative;
 		top: 5px;
 	}
+	#arrows{
+		position: relative;
+		margin: 10px;
+	}
+	#arrows a{
+		margin: 30px;
+	}
 	select{
+		font-family: 'M PLUS Rounded 1c', sans-serif;
 		box-sizing: content-box;
 		display: block;
 		text-align: center;
@@ -63,16 +75,17 @@
     select {
         height: 50px;
     }
-}
+	}
 	img{
 		display: block;
 		margin: auto;
 	}
 	input[type="color"]{
+		margin: 10px;
 		position: relative;
-		top: 7px;
-		height: 40px;
-		width: 40px;
+		top: 13px;
+		height: 50px;
+		width: 50px;
 		border-radius: 10px;
 		background: purple;
 	}
@@ -188,8 +201,8 @@
  			$("#refresh").click(function(){
  			if(uploadImgSrc){
  				w = 1;
- 				x=1;
- 				y=1
+ 				x=0;
+ 				y=0;
  				draw();
  			}
  				return false;
@@ -239,10 +252,14 @@
 <input type="color" id="colorPicker" class="color" value="#000000">
 <br>
 <br>
+<div id="arrows">
 <a href="#" id="up" class="color"><i class="fa-solid fa-angle-up fa-2x"></i></a>
-<a href="#" id="down" class="color"><i class="fa-solid fa-angle-down fa-2x"></i></a>
+<br>
 <a href="#" id="left" class="color"><i class="fa-solid fa-angle-left fa-2x"></i></a>
 <a href="#" id="right" class="color"><i class="fa-solid fa-angle-right fa-2x"></i></a>
+<br>
+<a href="#" id="down" class="color"><i class="fa-solid fa-angle-down fa-2x"></i></a>
+</div>
 <br>
 <a href="#" id="plus" class="color"><i class="fa-solid fa-plus fa-2x"></i></a>
 <a href="#" id="minus" class="color"><i class="fa-solid fa-minus fa-2x"></i></a>
